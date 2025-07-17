@@ -1,7 +1,50 @@
 import 'package:flutter/material.dart';
+import 'pedidos.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  String? _emailError;
+  String? _passwordError;
+
+  final String _mockEmail = 'admin@admin.com';
+  final String _mockPassword = 'admin';
+
+  void _handleLogin() {
+    setState(() {
+      _emailError = null;
+      _passwordError = null;
+
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
+
+      if (email != _mockEmail) {
+        _emailError = 'Usuário ou e-mail incorreto.';
+      }
+
+      if (password != _mockPassword) {
+        _passwordError = 'Senha inválida';
+      }
+
+      if (_emailError == null && _passwordError == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login realizado com sucesso.')),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Pedidos()),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +61,7 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Login',
               textAlign: TextAlign.center,
               maxLines: 2,
@@ -26,16 +69,27 @@ class LoginPage extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 24),
-            const TextField(
-              decoration: InputDecoration(labelText: 'Usuário ou E-mail'),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Usuário ou E-mail',
+                errorText: _emailError,
+              ),
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 16),
-            const TextField(decoration: InputDecoration(), obscureText: true),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: 'Digite sua senha',
+                errorText: _passwordError,
+              ),
+              obscureText: true,
+            ),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                print('cliquei aqui');
+                _handleLogin();
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),

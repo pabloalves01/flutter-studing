@@ -8,8 +8,14 @@ class Pedidos extends StatefulWidget {
 }
 
 class _PedidosPageState extends State<Pedidos> {
-  final pedidos = [];
-
+  final List<Map<String, dynamic>> pedidos = [
+    {'nome': 'João da Silva', 'produto': 'Notebook Gamer', 'valor': 4599.99},
+    {
+      'nome': 'Maria Oliveira',
+      'produto': 'Cadeira Escritório',
+      'valor': 849.90,
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +37,41 @@ class _PedidosPageState extends State<Pedidos> {
                   style: TextStyle(fontSize: 18),
                 ),
               )
-            : Column(
-                children: [
-                  Container(color: Colors.blue, height: 100, width: 400),
-                  // aqui você pode adicionar outros widgets de pedidos
-                ],
+            : ListView.builder(
+                itemCount: pedidos.length,
+                itemBuilder: (context, index) => Container(
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nome: ${pedidos[index]['nome']}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Produto: ${pedidos[index]['produto']}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Valor: R\$ ${pedidos[index]['valor'].toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
       ),
     );

@@ -9,6 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool _isLoading = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -18,32 +19,42 @@ class _LoginPageState extends State<LoginPage> {
   final String _mockEmail = 'admin@admin.com';
   final String _mockPassword = 'admin';
 
-  void _handleLogin() {
+  void _handleLogin() async {
     setState(() {
       _emailError = null;
       _passwordError = null;
-
-      final email = _emailController.text.trim();
-      final password = _passwordController.text;
-
-      if (email != _mockEmail) {
-        _emailError = 'Usuário ou e-mail incorreto.';
-      }
-
-      if (password != _mockPassword) {
-        _passwordError = 'Senha inválida';
-      }
-
-      if (_emailError == null && _passwordError == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login realizado com sucesso.')),
-        );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Pedidos()),
-        );
-      }
+      _isLoading = true;
     });
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    if (email != _mockEmail) {
+      _emailError = 'Usuário ou e-mail incorreto.';
+    }
+
+    if (password != _mockPassword) {
+      _passwordError = 'Senha inválida';
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (_emailError == null && _passwordError == null) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login realizado com sucesso.'), backgroundColor: Colors.green,),
+      );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const Pedidos()),
+      );
+    } else {
+      setState(() {});
+    }
   }
 
   @override
@@ -88,9 +99,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () {
-                _handleLogin();
-              },
+              onPressed: _handleLogin,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 backgroundColor: Colors.black,
@@ -98,10 +107,19 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Text(
-                'Entrar',
-                style: TextStyle(fontSize: 16, color: Colors.white),
-              ),
+              child: _isLoading
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : const Text(
+                      'Entrar',
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
             ),
           ],
         ),

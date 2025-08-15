@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart'; // 👈 importa sua nova tela
 
 void main() {
   runApp(const MyApp());
@@ -12,23 +11,49 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-        useMaterial3: true,
-
-        // Estilo Global pros Inputs
-        inputDecorationTheme: const InputDecorationTheme(
-          labelStyle: TextStyle(color: Colors.black87),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black, width: 2),
-          ),
-          border: OutlineInputBorder(), // padrão
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Container(color: Colors.red, width: 100.0, height: 100.0),
+                Container(color: Colors.blue, width: 50.0, height: 50.0),
+              ],
+            ),
+            Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Container(color: Colors.blue, width: 100.0, height: 100.0),
+                Container(color: Colors.red, width: 50.0, height: 50.0),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(color: Colors.cyan, width: 50.0, height: 50.0),
+                Container(color: Colors.pinkAccent, width: 50.0, height: 50.0),
+                Container(color: Colors.purple, width: 50.0, height: 50.0),
+              ],
+            ),
+            Container(
+              color: Colors.amber,
+              width: 300.0,
+              height: 30.0,
+              child: Text(
+                'Diamante Amarelo',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 28),
+              ),
+            ),
+          ],
         ),
       ),
-      home: const LoginPage(),
     );
   }
 }

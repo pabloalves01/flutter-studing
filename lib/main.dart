@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool opacidade = true;
 
   @override
   Widget build(BuildContext context) {
@@ -18,42 +25,53 @@ class MyApp extends StatelessWidget {
           title: Text('Tarefas', style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.black87,
         ),
-        body: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            Task(
-              'Teste 1 Teste 1 Teste 1 Teste 1',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              1,
-            ),
-            Task(
-              'Teste 2',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              2,
-            ),
-            Task(
-              'Teste 4',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              4,
-            ),
-            Task(
-              'Teste 5',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              5,
-            ),
-            Task(
-              'Teste 6',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              3,
-            ),
-            Task(
-              'Teste 7',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              2,
-            ),
-          ],
+        body: AnimatedOpacity(
+          opacity: opacidade ? 1 : 0,
+          duration: Duration(milliseconds: 500),
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              Task(
+                'Teste 1 Teste 1 Teste 1 Teste 1',
+                'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
+                1,
+              ),
+              Task(
+                'Teste 2',
+                'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
+                2,
+              ),
+              Task(
+                'Teste 4',
+                'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
+                4,
+              ),
+              Task(
+                'Teste 5',
+                'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
+                5,
+              ),
+              Task(
+                'Teste 6',
+                'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
+                3,
+              ),
+              Task(
+                'Teste 7',
+                'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
+                2,
+              ),
+            ],
+          ),
         ),
-        // floatingActionButton: FloatingActionButton(onPressed: () {}),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(opacidade ? Icons.visibility : Icons.visibility_off),
+          onPressed: () {
+            setState(() {
+              opacidade = !opacidade;
+            });
+          },
+        ),
       ),
     );
   }

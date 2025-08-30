@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_application_1/difficulty.dart';
 void main() {
   runApp(MyApp());
 }
@@ -143,52 +143,7 @@ class _TaskState extends State<Task> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 4),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: (widget.dificuldade >= 1
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                                size: 15,
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: (widget.dificuldade >= 2
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                                size: 15,
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: (widget.dificuldade >= 3
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                                size: 15,
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: (widget.dificuldade >= 4
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                                size: 15,
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: (widget.dificuldade >= 4
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                                size: 15,
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: (widget.dificuldade >= 5
-                                    ? Colors.blue
-                                    : Colors.blue[100]),
-                                size: 15,
-                              ),
-                            ],
-                          ),
+                          child: Difficulty(difficultyLevel: widget.dificuldade,),
                         ),
                       ],
                     ),
@@ -250,3 +205,5 @@ class _TaskState extends State<Task> {
     );
   }
 }
+
+

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/difficulty.dart';
+import 'package:flutter_application_1/components/difficulty.dart';
 
 class Task extends StatefulWidget {
   final String nome;
@@ -67,7 +67,9 @@ class _TaskState extends State<Task> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 4),
-                          child: Difficulty(difficultyLevel: widget.dificuldade,),
+                          child: Difficulty(
+                            difficultyLevel: widget.dificuldade,
+                          ),
                         ),
                       ],
                     ),

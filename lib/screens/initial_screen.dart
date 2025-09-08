@@ -24,36 +24,13 @@ class _InitialScreenState extends State<InitialScreen> {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
-            Task(
-              'Teste 1',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              1,
-            ),
-            Task(
-              'Teste 2',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              2,
-            ),
-            Task(
-              'Teste 4',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              4,
-            ),
-            Task(
-              'Teste 5',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              5,
-            ),
-            Task(
-              'Teste 6',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              3,
-            ),
-            Task(
-              'Teste 7',
-              'https://site-inkor.s3.amazonaws.com/imagens/tinta-podium-6888fc3e372fa.png',
-              2,
-            ),
+            Task('Teste 1', 'assets/images/tinta-podium.png', 1),
+            Task('Teste 2', 'assets/images/tinta-podium.png', 2),
+            Task('Teste 4', 'assets/images/tinta-podium.png', 4),
+            Task('Teste 5', 'assets/images/tinta-podium.png', 5),
+            Task('Teste 6', 'assets/images/tinta-podium.png', 3),
+            Task('Teste 7', 'assets/images/tinta-podium.png', 2),
+            SizedBox(height: 80),
           ],
         ),
       ),

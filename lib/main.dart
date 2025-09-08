@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/components/difficulty.dart';
-import 'package:flutter_application_1/components/task.dart';
+import 'package:flutter_application_1/screens/form_screen.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
 
 void main() {
@@ -15,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: InitialScreen(),
+      // home: InitialScreen(),
+      home: FormScreen(),
     );
   }
 }

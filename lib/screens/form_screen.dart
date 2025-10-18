@@ -36,9 +36,6 @@ class _FormScreenState extends State<FormScreen> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextFormField(
-                  onChanged: (text) {
-                    setState(() {});
-                  },
                   controller: nameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -51,10 +48,9 @@ class _FormScreenState extends State<FormScreen> {
               Padding(
                 padding: EdgeInsets.all(8),
                 child: TextFormField(
-                  onChanged: (text) {
-                    setState(() {});
-                  },
                   controller: difficultyController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Dificuldade',
@@ -67,9 +63,10 @@ class _FormScreenState extends State<FormScreen> {
                 padding: EdgeInsets.all(8),
                 child: TextFormField(
                   onChanged: (text) {
-                    setState(() {});
+                    setState(() {}); // Necessário apenas aqui para atualizar preview da imagem
                   },
                   controller: imageController,
+                  keyboardType: TextInputType.url,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Imagem',
@@ -88,7 +85,26 @@ class _FormScreenState extends State<FormScreen> {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(imageController.text, fit: BoxFit.cover),
+                  child: imageController.text.isNotEmpty
+                      ? Image.network(
+                          imageController.text,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(Icons.error, color: Colors.white);
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) return child;
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                        )
+                      : Icon(Icons.image, color: Colors.white),
                 ),
               ),
               ElevatedButton(

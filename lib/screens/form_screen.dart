@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/screens/initial_screen.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({super.key});
@@ -158,9 +159,21 @@ class _FormScreenState extends State<FormScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // fica de olho no estado do formulario para verificar se o formulario foi validado,
-                        //pq conforme eu preencho os campos o estado muda e o validate verifica se o formulario foi validado
-                        print('Formulario validado');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Tarefa adicionada com sucesso'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitialScreen()));
+                      } else {
+                        print('Formulario não validado');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Formulario não validado'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
                       }
                     },
                     child: Text('Adicionar'),

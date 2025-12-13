@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      // home: InitialScreen(),
-      home: FormScreen(),
+      home: InitialScreen(),
+      // home: FormScreen(),
     );
   }
 }

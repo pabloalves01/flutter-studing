@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
@@ -25,7 +23,13 @@ class _FormScreenState extends State<FormScreen> {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          leading: Container(),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            color: Colors.white,
+            icon: Icon(Icons.arrow_back),
+          ),
           title: const Text(
             'Nova Tarefa',
             style: TextStyle(color: Colors.white),
@@ -165,7 +169,12 @@ class _FormScreenState extends State<FormScreen> {
                             backgroundColor: Colors.green,
                           ),
                         );
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => InitialScreen()));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InitialScreen(),
+                          ),
+                        );
                       } else {
                         print('Formulario não validado');
                         ScaffoldMessenger.of(context).showSnackBar(

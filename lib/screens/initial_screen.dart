@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/components/task.dart';
+import 'package:flutter_application_1/screens/form_screen.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -17,6 +18,17 @@ class _InitialScreenState extends State<InitialScreen> {
         leading: Container(),
         title: Text('Tarefas', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black87,
+        actions: [
+          IconButton(
+            icon: Icon(opacidade ? Icons.visibility : Icons.visibility_off),
+            color: Colors.white,
+            onPressed: () {
+              setState(() {
+                opacidade = !opacidade;
+              });
+            },
+          ),
+        ],
       ),
       body: AnimatedOpacity(
         opacity: opacidade ? 1 : 0,
@@ -35,11 +47,12 @@ class _InitialScreenState extends State<InitialScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(opacidade ? Icons.visibility : Icons.visibility_off),
+        child: Icon(Icons.add),
         onPressed: () {
-          setState(() {
-            opacidade = !opacidade;
-          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FormScreen()),
+          );
         },
       ),
     );

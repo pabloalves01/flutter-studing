@@ -37,13 +37,61 @@ class _InitialScreenState extends State<InitialScreen> {
           future: TaskDao().findAll(),
           builder: (context, snapshot) {
             List<Task>? items = snapshot.data;
-            return ListView.builder(
-              itemCount: items!.length,
-              itemBuilder: (BuildContext context, int index) {
-                final Task task = items[index];
-                return task;
-              },
-            );
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      Text('Carregando...'),
+                    ],
+                  ),
+                );
+              case ConnectionState.waiting:
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      Text('Carregando...'),
+                    ],
+                  ),
+                );
+              case ConnectionState.active:
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      Text('Carregando...'),
+                    ],
+                  ),
+                );
+              case ConnectionState.done:
+                if (snapshot.hasData && items != null) {
+                  if (items.isNotEmpty) {
+                    return ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final Task task = items[index];
+                        return task;
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.error_outline, size: 32),
+                          Text('Não há tarefas para visualizar'),
+                        ],
+                      ),
+                    );
+                  }
+                }
+                return Text('Ocorreu um erro desconhecido.');
+            }
           },
         ),
       ),

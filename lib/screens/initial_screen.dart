@@ -21,6 +21,13 @@ class _InitialScreenState extends State<InitialScreen> {
         backgroundColor: Colors.black87,
         actions: [
           IconButton(
+            onPressed: () {
+              setState(() {});
+            },
+            icon: Icon(Icons.refresh),
+            color: Colors.white,
+          ),
+          IconButton(
             icon: Icon(opacidade ? Icons.visibility : Icons.visibility_off),
             color: Colors.white,
             onPressed: () {

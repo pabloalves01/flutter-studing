@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/components/task.dart';
+import 'package:flutter_application_1/data/task_dao.dart';
 import 'package:flutter_application_1/screens/initial_screen.dart';
 
 class FormScreen extends StatefulWidget {
@@ -163,6 +165,13 @@ class _FormScreenState extends State<FormScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        TaskDao().save(
+                          Task(
+                            nameController.text,
+                            imageController.text,
+                            int.parse(difficultyController.text),
+                          ),
+                        );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('Tarefa adicionada com sucesso'),
